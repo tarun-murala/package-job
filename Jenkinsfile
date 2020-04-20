@@ -4,12 +4,8 @@ pipeline {
         maven 'Maven'
     }
     environment {
-        REVISION = "1.${env.BUILD_NUMBER}"
-        NEXUS_VERSION = "nexus3"
-        NEXUS_PROTOCOL = "http"
-        NEXUS_URL = "10.53.70.151:2500"
         NEXUS_REPOSITORY = "maven-releases"
-        NEXUS_CREDENTIAL_ID = "nexus-credentials"
+        ARTIFACT_ID = "tarun-artifact"
     }
     stages {
         stage("checkout") {
@@ -24,17 +20,19 @@ pipeline {
         stage("build") {
             steps {
                 snDevOpsStep()
-                //snDevOpsChange()
+                snDevOpsChange()
                 echo "Building" 
                 sh "mvn clean package"
-                snDevOpsArtifact("""{"artifacts": [{"name": "${pom.artifactId}","version": "1.${env.BUILD_NUMBER}.0","semanticVersion": "${env.BUILD_NUMBER}","repositoryName": "${NEXUS_REPOSITORY}"}],"stageName": "build","branchName": "master"}""")
+                // artifact register - semantic version, stage name and branch are optional
+                snDevOpsArtifact(artifactsPayload:"""{"artifacts": [{"name": "${ARTIFACT_ID}","version": "1.${env.BUILD_NUMBER}.0","semanticVersion": "1.${env.BUILD_NUMBER}.0","repositoryName": "${NEXUS_REPOSITORY}"}]}""")  
+                
             }
         }
 
         stage('test') {
             steps {
                 snDevOpsStep()
-                //snDevOpsChange()
+                snDevOpsChange()
                 echo "Unit Test"
                 sh "mvn test"
                 sleep 5
@@ -45,17 +43,13 @@ pipeline {
                 }
           }
         }
-        stage("package") {
-            steps{
-                echo "package"
-                // snDevOpsChange()
-                snDevOpsPackage(name: "tarun-package", artifactsPayload: """{"artifacts": [{"name": "${pom.artifactId}","version": "1.${env.BUILD_NUMBER}.0","semanticVersion": "${env.BUILD_NUMBER}","repositoryName": "${NEXUS_REPOSITORY}"}],"stageName": "build","branchName": "master"}""")
-            }
-        }
+
         stage("deploy") {
             steps{
-                echo "deploy"
+                snDevOpsStep()                    
+                snDevOpsPackage(name: "tarun-package-1.${env.BUILD_ID}.0", artifactsPayload: """{"artifacts": [{"name": "${ARTIFACT_ID}","version": "1.${env.BUILD_NUMBER}.0","semanticVersion": "1.${env.BUILD_NUMBER}.0","repositoryName": "${NEXUS_REPOSITORY}"}]}""")
                 snDevOpsChange()
+                echo "deploy"
             }
         }
     }
