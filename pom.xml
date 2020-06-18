@@ -33,7 +33,7 @@
 		<url>http://localhost:2500/repository/maven-releases/</url> </repository> 
 		<snapshotRepository> <id>nexus</id> <name>maven-snapshots</name> <url>http://localhost:2500/repository/maven-snapshots/</url> 
 		</snapshotRepository> </distributionManagement> -->
-	<profiles>
+	<!-- <profiles>
 		<profile>
 			<id>default</id>
 			<activation>
@@ -55,7 +55,7 @@
 				<suite.name>${suite}</suite.name>
 			</properties>
 		</profile>
-	</profiles>
+	</profiles> -->
 
 	<build>
 		<pluginManagement>
@@ -92,7 +92,7 @@
 					<version>3.0.0-M3</version>
 					<configuration>
 						<suiteXmlFiles>
-							<suiteXmlFile>${suite.name}</suiteXmlFile>
+							<suiteXmlFile>testng.xml</suiteXmlFile>
 						</suiteXmlFiles>
 					</configuration>
 				</plugin>
