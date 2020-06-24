@@ -22,7 +22,9 @@ pipeline {
                 snDevOpsStep()
                 snDevOpsChange()
                 echo "Building" 
-                mvn clean install
+                withMaven(maven : 'apache-maven-3.6.1') {
+                    bat 'mvn clean install'
+                }
                 // artifact register - semantic version, stage name and branch are optional
                 snDevOpsArtifact(artifactsPayload:"""{"artifacts": [{"name": "${ARTIFACT_ID}","version": "1.${env.BUILD_NUMBER}.0","semanticVersion": "1.${env.BUILD_NUMBER}.0","repositoryName": "${NEXUS_REPOSITORY}"}]}""")  
                 
@@ -34,7 +36,9 @@ pipeline {
                 snDevOpsStep()
                 snDevOpsChange()
                 echo "Unit Test"
-                mvn test
+                withMaven(maven : 'apache-maven-3.6.1') {
+                 bat 'test'
+                }
                 sleep 5
             }
             post {
