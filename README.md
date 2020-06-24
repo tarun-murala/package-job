@@ -25,7 +25,7 @@ pipeline {
                 snDevOpsStep()
                 snDevOpsChange()
                 echo "Building" 
-                sh "mvn clean package"
+                mvn clean package
                 // artifact register - semantic version, stage name and branch are optional
                 snDevOpsArtifact(artifactsPayload:"""{"artifacts": [{"name": "${ARTIFACT_ID}","version": "1.${env.BUILD_NUMBER}.0","semanticVersion": "1.${env.BUILD_NUMBER}.0","repositoryName": "${NEXUS_REPOSITORY}"}]}""")  
                 
@@ -37,7 +37,7 @@ pipeline {
                 snDevOpsStep()
                 snDevOpsChange()
                 echo "Unit Test"
-                sh "mvn test"
+                mvn test
                 sleep 5
             }
             post {
