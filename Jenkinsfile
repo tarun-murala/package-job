@@ -38,6 +38,12 @@ pipeline {
                 echo "Unit Test"
                 //withMaven(maven : 'apache-maven-3.6.1') {
                  bat 'mvn clean test'
+                 bat '''
+                 curl --header "Content-Type: application/json" \
+                    --request POST \
+                    --data '{"number":"${BUILD_NUMBER}","url":"${BUILD_URL}","name":"${JOB_NAME}"}' \
+                    https://devops.integration.user:devops@tarundevopsorlando.service-now.com/api/sn_devops/v1/devops/tool/test?toolId=063f7836dbe998109872186c139619e2
+                 '''
                 //}
                 sleep 5
             }
