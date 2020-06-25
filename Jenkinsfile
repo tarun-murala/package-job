@@ -37,7 +37,7 @@ pipeline {
                 snDevOpsChange()
                 echo "Unit Test"
                 //withMaven(maven : 'apache-maven-3.6.1') {
-                 bat 'test'
+                 bat 'mvn clean test'
                 //}
                 sleep 5
             }
@@ -51,7 +51,7 @@ pipeline {
         stage("deploy") {
             steps{
                 snDevOpsStep()                    
-                snDevOpsPackage(name: "tarun-package-1.${env.BUILD_ID}.0", artifactsPayload: """{"artifacts": [{"name": "${ARTIFACT_ID}","version": "1.${env.BUILD_NUMBER}.0","semanticVersion": "1.${env.BUILD_NUMBER}.0","repositoryName": "${NEXUS_REPOSITORY}"}]}""")
+                //snDevOpsPackage(name: "tarun-package-1.${env.BUILD_ID}.0", artifactsPayload: """{"artifacts": [{"name": "${ARTIFACT_ID}","version": "1.${env.BUILD_NUMBER}.0","semanticVersion": "1.${env.BUILD_NUMBER}.0","repositoryName": "${NEXUS_REPOSITORY}"}]}""")
                 snDevOpsChange()
                 echo "deploy"
             }
