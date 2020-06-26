@@ -3,22 +3,10 @@
 <suite name="Suite" parallel="none">
   <test name="Test">
     <classes>
-      <class name="com.tarun.UITest"/>
-    </classes>
-  </test> <!-- Test -->
-  <test name="Test">
-    <classes>
-      <class name="com.tarun.UITest2"/>
-    </classes>
-  </test> <!-- Test -->
-  <test name="Test">
-    <classes>
       <class name="com.tarun.UITest3"/>
-    </classes>
-  </test> <!-- Test -->
-  <test name="Test">
-    <classes>
+      <class name="com.tarun.UITest"/>
       <class name="com.tarun.UITest4"/>
+      <class name="com.tarun.UITest2"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
