@@ -24,7 +24,7 @@ pipeline {
                 snDevOpsChange()
                 echo "Building" 
                 //withMaven(maven : 'apache-maven-3.6.1') {
-                    bat 'mvn clean install'
+                    bat 'mvn clean install -DskipTests=true'
                 //}
                 // artifact register - semantic version, stage name and branch are optional
                 //snDevOpsArtifact(artifactsPayload:"""{"artifacts": [{"name": "${ARTIFACT_ID}","version": "1.${env.BUILD_NUMBER}.0","semanticVersion": "1.${env.BUILD_NUMBER}.0","repositoryName": "${NEXUS_REPOSITORY}"}]}""")  
