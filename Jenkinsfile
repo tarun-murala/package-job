@@ -39,18 +39,18 @@ pipeline {
                 echo "Unit Test"
                 //withMaven(maven : 'apache-maven-3.6.1') {
                  bat 'mvn clean test'
-                 bat """
-                 curl --header "Content-Type: application/json" \
-                    --request POST \
-                    --data "{'number':'${BUILD_NUMBER}','url':'${BUILD_URL}','name':'${JOB_NAME}'}" \
-                    https://$SN_CREDS_USR:$SN_CREDS_PSW@tarundevopsorlando.service-now.com/api/sn_devops/v1/devops/tool/test?toolId=063f7836dbe998109872186c139619e2&testType=Selenium
-                 """
                 //}
                 sleep 5
             }
             post {
                 always {
                     junit '**/target/surefire-reports/*.xml' 
+                    bat """
+                    curl --header "Content-Type: application/json" \
+                        --request POST \
+                        --data "{'number':'${BUILD_NUMBER}','url':'${BUILD_URL}','name':'${JOB_NAME}'}" \
+                        https://$SN_CREDS_USR:$SN_CREDS_PSW@tarundevopsorlando.service-now.com/api/sn_devops/v1/devops/tool/test?toolId=063f7836dbe998109872186c139619e2&testType=Selenium
+                    """
                 }
           }
         }
