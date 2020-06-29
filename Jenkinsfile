@@ -48,7 +48,7 @@ pipeline {
                     bat """
                     curl --header "Content-Type: application/json" \
                         --request POST \
-                        --data "{'number':'${BUILD_NUMBER}','url':'${BUILD_URL}','name':'${JOB_NAME}'}" \
+                        --data "{'number':'${BUILD_NUMBER}','url':'${BUILD_URL}','name':'${JOB_NAME}','stage':'test'}" \
                         -L "https://$SN_CREDS_USR:$SN_CREDS_PSW@devopsdemo.service-now.com/api/sn_devops/v1/devops/tool/test?toolId=0507656fdbad1c10c49df5861d9619e6&testType=Selenium"
                     """
                 }
