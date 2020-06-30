@@ -49,7 +49,7 @@ pipeline {
                     curl --header "Content-Type: application/json" \
                         --request POST \
                         --data "{'number':'${BUILD_NUMBER}','url':'${BUILD_URL}','name':'${JOB_NAME}','stage':'test'}" \
-                        -L "https://$SN_CREDS_USR:$SN_CREDS_PSW@devopsdemo.service-now.com/api/sn_devops/v1/devops/tool/test?toolId=0507656fdbad1c10c49df5861d9619e6&testType=Selenium"
+                        -L "https://$SN_CREDS_USR:$SN_CREDS_PSW@devopsfixvalidations.service-now.com/api/sn_devops/v1/devops/tool/test?toolId=a0c164d8db7dd0104b6a9e7aca9619fd&testType=Selenium"
                     """
                 }
           }
